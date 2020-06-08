@@ -87,6 +87,27 @@ public class PersonDao {
         return Persons;
     }
 
+    // 获取总数
+    public int getTotal() {
+        int total = 0;
+        try (Connection c = getConnection(); Statement s = c.createStatement();) {
+
+            String sql = "select count(*) from person";
+
+            ResultSet rs = s.executeQuery(sql);
+            while (rs.next()) {
+                total = rs.getInt(1);
+            }
+
+            System.out.println("total:" + total);
+
+        } catch (SQLException e) {
+
+            e.printStackTrace();
+        }
+        return total;
+    }
+
     // 删除
     public void delete(int id) {
 
